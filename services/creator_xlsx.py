@@ -12,5 +12,5 @@ class CreatorXlsx:
             'excel': self.excel.to_dict()
         }
 
-    def toJSON(self):
+    def to_json(self):
         return json.dumps(self.to_dict(), indent=4)
