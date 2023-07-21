@@ -1,7 +1,7 @@
 import json
 
-from db.dynamo_client import DynamoClient
-from services.report_services import ReportService
+from src.db.dynamo_client import DynamoClient
+from src.services.report_services import ReportService
 
 
 def handler(event, context):

@@ -6,7 +6,7 @@ import logging
 import boto3
 import pytz
 
-from config.enviroments import ENVS
+from src.config.enviroments import ENVS
 
 
 class DynamoClient:

@@ -12,7 +12,7 @@ phases:
       - cd lib
       - zip -r9 ../deployment_package.zip .
       - cd ..
-      - zip -g deployment_package.zip app.py
+      - zip -g deployment_package.zip app.py src/*
   post_build:
     commands:
       - echo "UPDATING LAMBDA"

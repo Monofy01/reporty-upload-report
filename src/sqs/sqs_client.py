@@ -2,7 +2,7 @@ import json
 
 import boto3
 
-from config.enviroments import ENVS
+from src.config.enviroments import ENVS
 
 
 class SQSClient:

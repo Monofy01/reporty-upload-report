@@ -1,6 +1,6 @@
 import json
 
-from models.excel import Excel
+from src.models.excel import Excel
 
 
 class CreatorXlsx:

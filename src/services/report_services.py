@@ -1,8 +1,8 @@
 import json
 
-from exceptions.InvalidRecords import InvalidColumnTypes
-from services.creator_xlsx import CreatorXlsx
-from sqs.sqs_client import SQSClient
+from src.exceptions.InvalidRecords import InvalidColumnTypes
+from src.services.creator_xlsx import CreatorXlsx
+from src.sqs.sqs_client import SQSClient
 
 
 class ReportService:
