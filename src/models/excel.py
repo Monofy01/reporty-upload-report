@@ -38,13 +38,3 @@ class Excel:
 
     def create_sheets(self, sheets):
         return [Sheet(item['name'], item['columns'], item['data']) for item in sheets]
-
-    def to_dict(self):
-        return {
-            'filename': self.filename,
-            'webhook': self.webhook,
-            'sheets': [sheet.to_dict() for sheet in self.sheets]
-        }
-
-    def to_json(self):
-        return json.dumps(self.to_dict(), indent=4)

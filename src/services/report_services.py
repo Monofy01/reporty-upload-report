@@ -1,7 +1,7 @@
 import json
 
 from src.exceptions.InvalidRecords import InvalidColumnTypes
-from src.services.creator_xlsx import CreatorXlsx
+from src.services.creator_xlsx import CreatorXlsx, CreatorEncoder
 from src.sqs.sqs_client import SQSClient
 
 
@@ -12,7 +12,7 @@ class ReportService:
     def validate_xlsx(self, request_json):
         try:
             self.creator_excel = CreatorXlsx(request_json)
-            SQSClient.send_message(self.creator_excel.to_json())
+            SQSClient.send_message(json.dumps(self.creator_excel, cls=CreatorEncoder))
 
             return {
                 'statusCode': 200,

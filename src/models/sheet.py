@@ -27,7 +27,7 @@ class Sheet:
             raise InvalidName
 
     def validate_columns(self, columns):
-        valid_types = {'int', 'float', 'str', 'bool', 'list'} # TODO: TIENE QUE SER CONSTANTE
+        valid_types = {'int', 'float', 'str', 'bool', 'list'}  # TODO: TIENE QUE SER CONSTANTE
         for col in columns:
             pattern = r'^[a-zA-Z0-9-_]{1,12}$'
             if not re.match(pattern, col[0]):
@@ -60,14 +60,3 @@ class Sheet:
                 if not isinstance(real_value, eval(type_name)):
                     self.data_invalid.append(self.data[index])
                     self.data.pop(index)
-
-    def to_dict(self):
-        return {
-            'name': self.name,
-            'columns': self.columns,
-            'data': self.data,
-            'data_invalid': self.data_invalid
-        }
-
-    def to_json(self):
-        return json.dumps(self.to_dict(), indent=4)
