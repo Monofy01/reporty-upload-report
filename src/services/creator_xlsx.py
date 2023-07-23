@@ -12,9 +12,7 @@ class CreatorEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, CreatorXlsx):
             return {
-                'filename': obj.excel.filename,
-                'webhook': obj.excel.webhook,
-                'sheets': obj.excel.sheets
+                'excel': obj.excel
             }
         if isinstance(obj, Excel):
             return {
