@@ -24,6 +24,7 @@ class CreatorEncoder(json.JSONEncoder):
             return {
                 'name': obj.name,
                 'columns': obj.columns,
-                'data': obj.data
+                'data': obj.data,
+                'data_invalid': obj.data_invalid
             }
         return super().default(obj)
