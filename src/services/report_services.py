@@ -12,6 +12,7 @@ class ReportService:
     def validate_xlsx(self, request_json):
         try:
             self.creator_excel = CreatorXlsx(request_json)
+            print(json.dumps(self.creator_excel, cls=CreatorEncoder))
             SQSClient.send_message(json.dumps(self.creator_excel, cls=CreatorEncoder))
 
             return {
