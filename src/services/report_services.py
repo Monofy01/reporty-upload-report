@@ -19,7 +19,7 @@ class ReportService:
 
 
             response = {
-                'message': f"El archivo {request_json['filename']} se ha mandado correctamente a procesar"
+                'message': f"El archivo {request_json['excel']['filename']} se ha mandado correctamente a procesar"
             }
             return {
                 'statusCode': 200,

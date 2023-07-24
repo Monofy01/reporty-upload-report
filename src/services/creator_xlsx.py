@@ -29,4 +29,6 @@ class CreatorEncoder(json.JSONEncoder):
                 'data': obj.data,
                 'data_invalid': obj.data_invalid
             }
+        if hasattr(obj, 'email'):
+            return obj.email
         return super().default(obj)
