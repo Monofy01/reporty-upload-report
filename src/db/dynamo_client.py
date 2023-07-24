@@ -7,6 +7,7 @@ import boto3
 import pytz
 
 from src.config.enviroments import ENVS
+from src.exceptions.InvalidRecords import ReporteExistente
 
 
 class DynamoClient:
@@ -39,7 +40,7 @@ class DynamoClient:
                 'Put': {
                     'TableName': ENVS.DYNAMO_TABLE_METADATA,
                     'Item': {
-                        'id': {'S': 'name#' + f'{filename}.xlsx'},
+                        'id': {'S': 'name#' + f'{filename}'},
                     },
                     'ConditionExpression': 'attribute_not_exists(id)'
                 }
@@ -47,7 +48,7 @@ class DynamoClient:
         ]
 
         try:
-            response = dynamodb.transact_write_items(TransactItems=metadata_xlsx)
-            logging.info('La metadata del reporte ha sido insertada')
+            dynamodb.transact_write_items(TransactItems=metadata_xlsx)
+            print('La metadata del reporte ha sido insertada')
         except Exception as e:
-            logging.error('ERROR:: Tu reporte ya existe')
+            raise ReporteExistente

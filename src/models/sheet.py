@@ -39,7 +39,6 @@ class Sheet:
         for index, row in enumerate(self.data):
             valid_types = {'int', 'float', 'str', 'bool', 'list'}
             if not len(columns) == len(row):
-                # TODO: AÑADIR EXCEPCION CUANDO NO CORRESPONDAN, SE EVITA EL INSERT Y SE ANEXA LOG DE SALIDA
                 raise InvalidDataAndColumns
 
             # no n*n, por si crece
