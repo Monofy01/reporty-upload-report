@@ -5,6 +5,7 @@ from src.services.report_services import ReportService
 
 
 def handler(event, context):
+    print(f"REQUEST :: {event}")
     try:
         request_data = json.loads(event['body'])
         excel = ReportService()
