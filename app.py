@@ -9,7 +9,7 @@ def handler(event, context):
     try:
         request_data = json.loads(event['body'])
         excel = ReportService()
-        response = excel.validate_xlsx(request_data['excel'], request_data['email'])
+        response = excel.validate_xlsx(request_data)
         return response
     except Exception as e:
         print(f"ERROR :: {e}")

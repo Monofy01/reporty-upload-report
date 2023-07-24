@@ -14,8 +14,7 @@ class ReportService:
     def validate_xlsx(self, request_json, email):
         try:
             self.creator_excel = CreatorXlsx(request_json)
-            print(json.dumps(self.creator_excel, cls=CreatorEncoder))
-            DynamoClient().insert_metadata(request_json['filename'], email)
+            DynamoClient().insert_metadata(request_json['excel']['filename'], request_json['email'])
             SQSClient.send_message(json.dumps(self.creator_excel, cls=CreatorEncoder))
 
 
