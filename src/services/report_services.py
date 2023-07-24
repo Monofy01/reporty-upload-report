@@ -15,8 +15,9 @@ class ReportService:
         try:
             self.creator_excel = CreatorXlsx(request_json)
             print(json.dumps(self.creator_excel, cls=CreatorEncoder))
-            SQSClient.send_message(json.dumps(self.creator_excel, cls=CreatorEncoder))
             DynamoClient().insert_metadata(request_json['filename'], email)
+            SQSClient.send_message(json.dumps(self.creator_excel, cls=CreatorEncoder))
+
 
             response = {
                 'message': f"El archivo {request_json['filename']} se ha mandado correctamente a procesar"
