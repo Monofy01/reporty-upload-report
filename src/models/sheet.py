@@ -7,7 +7,6 @@ from src.exceptions.InvalidRecords import InvalidName, InvalidColumnName, Invali
 
 class Sheet:
     def __init__(self, name: str, columns: Tuple[str, str], data: List[dict]):
-        # TODO: REVISAR VERIFICACIONES
         self.data = data
         self.data_invalid = list()
         self.union_validations(name, columns)

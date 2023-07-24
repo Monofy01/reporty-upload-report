@@ -2,7 +2,7 @@ import json
 
 from src.db.dynamo_client import DynamoClient
 from src.exceptions.InvalidRecords import InvalidColumnTypes, InvalidFilename, InvalidType, InvalidColumnName, \
-    InvalidDataAndColumns, ReporteExistente
+    InvalidDataAndColumns, ReporteExistente, InvalidName
 from src.services.creator_xlsx import CreatorXlsx, CreatorEncoder
 from src.sqs.sqs_client import SQSClient
 
@@ -33,12 +33,12 @@ class ReportService:
             print("ERROR EXCEPTION")
             return {
                 'statusCode': 400,
-                'body': json.dumps(e),
+                'body': json.dumps(str(e)),
                 'headers': {
                     'Content-Type': 'application/json'
                 }
             }
-        except (InvalidColumnTypes, InvalidFilename, InvalidType, InvalidColumnName, InvalidColumnTypes, InvalidDataAndColumns, ReporteExistente) as e:
+        except (InvalidColumnTypes, InvalidName, InvalidFilename, InvalidType, InvalidColumnName, InvalidColumnTypes, InvalidDataAndColumns, ReporteExistente) as e:
             response = {
                 'message': e.message,
                 'code': e.http_code,
