@@ -11,7 +11,7 @@ class ReportService:
     def __init__(self):
         self.creator_excel = None
 
-    def validate_xlsx(self, request_json, email):
+    def validate_xlsx(self, request_json):
         try:
             self.creator_excel = CreatorXlsx(request_json)
             DynamoClient().insert_metadata(request_json['excel']['filename'], request_json['email'])
