@@ -15,7 +15,7 @@ def handler(event, context):
         print(f"ERROR :: {e}")
         return {
             'statusCode': 500,
-            'body': json.dumps(e),
+            'body': json.dumps(str(e)),
             'headers': {
                 'Content-Type': 'application/json'
             }

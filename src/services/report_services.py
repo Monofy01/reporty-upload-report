@@ -43,7 +43,7 @@ class ReportService:
                 'code': e.http_code,
             }
             return {
-                'statusCode': response.code,
+                'statusCode': response['code'],
                 'body': json.dumps(response),
                 'headers': {
                     'Content-Type': 'application/json'
