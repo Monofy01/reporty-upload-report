@@ -10,8 +10,8 @@ class SQSClient:
         pass
 
     @staticmethod
-    def send_message(message):
+    def send_message(excel_json):
         sqs_client = boto3.client('sqs')
 
         return sqs_client.send_message(QueueUrl=ENVS.SQS_URL,
-                                       MessageBody=json.dumps(message))
+                                       MessageBody=json.dumps(excel_json))

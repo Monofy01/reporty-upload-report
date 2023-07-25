@@ -1,51 +1,25 @@
 import json
+import re
 
 from src.db.dynamo_client import DynamoClient
-from src.exceptions.InvalidRecords import InvalidColumnTypes, InvalidFilename, InvalidType, InvalidColumnName, \
-    InvalidDataAndColumns, ReporteExistente, InvalidName
-from src.services.creator_xlsx import CreatorXlsx, CreatorEncoder
+from src.exceptions.InvalidRecords import *
+from src.exceptions.excel_exceptions import ReporteExistente
+from src.exceptions.sheet_exceptions import InvalidColumnTypes, InvalidName, InvalidColumnName, InvalidDataAndColumns
+from src.services.creator_xlsx import CreatorXlsx
 from src.sqs.sqs_client import SQSClient
 
 
 class ReportService:
-    def __init__(self):
-        self.creator_excel = None
-
-    def validate_xlsx(self, request_json):
-        try:
-            self.creator_excel = CreatorXlsx(request_json)
-            DynamoClient().insert_metadata(request_json['excel']['filename'], request_json['email'])
-            SQSClient.send_message(json.dumps(self.creator_excel, cls=CreatorEncoder))
 
 
-            response = {
-                'message': f"El archivo {request_json['excel']['filename']} se ha mandado correctamente a procesar"
-            }
-            return {
-                'statusCode': 200,
-                'headers': {
-                    'Content-Type': 'application/json',
-                },
-                'body': json.dumps(response),
-            }
-        except ValueError as e:
-            print("ERROR EXCEPTION")
-            return {
-                'statusCode': 400,
-                'body': json.dumps(str(e)),
-                'headers': {
-                    'Content-Type': 'application/json'
-                }
-            }
-        except (InvalidColumnTypes, InvalidName, InvalidFilename, InvalidType, InvalidColumnName, InvalidColumnTypes, InvalidDataAndColumns, ReporteExistente) as e:
-            response = {
-                'message': e.message,
-                'code': e.http_code,
-            }
-            return {
-                'statusCode': response['code'],
-                'body': json.dumps(response),
-                'headers': {
-                    'Content-Type': 'application/json'
-                }
-            }
+    @staticmethod
+    def upload_report(excel_object, email_data):
+        excel_json = json.dumps(excel_object.to_dict())
+        DynamoClient.insert_metadata(excel_object.filename, email_data)
+        SQSClient.send_message(excel_json)
+
+
+
+
+
+

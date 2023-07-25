@@ -2,19 +2,19 @@ import datetime
 import hashlib
 import logging
 
-
 import boto3
 import pytz
 
 from src.config.enviroments import ENVS
-from src.exceptions.InvalidRecords import ReporteExistente
+from src.exceptions.excel_exceptions import ReporteExistente
 
 
 class DynamoClient:
     def __init__(self):
         pass
 
-    def insert_metadata(self, filename, email):
+    @staticmethod
+    def insert_metadata(filename, email):
         dynamodb = boto3.client('dynamodb')
 
         current_datetime = datetime.datetime.now(pytz.timezone('UTC'))
@@ -49,6 +49,7 @@ class DynamoClient:
 
         try:
             dynamodb.transact_write_items(TransactItems=metadata_xlsx)
-            print('La metadata del reporte ha sido insertada')
+            print("INFO :: La metadata ha sido insertada correctamente en las tablas de DynamoDB")
         except Exception as e:
+            print(f"ERROR :: Ha ocurrido un error en la generacion del reporte :: {e}")
             raise ReporteExistente
