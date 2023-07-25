@@ -1,3 +1,4 @@
+import http
 import json
 import re
 
@@ -7,6 +8,7 @@ from src.exceptions.sheet_exceptions import SheetException
 from src.models.excel import Excel
 from src.models.sheet import Sheet
 from src.services.report_services import ReportService
+from src.utils.constants.constants import Http
 
 
 def handler(event, context):
@@ -25,6 +27,16 @@ def handler(event, context):
             sheets=[Sheet.from_dict(item) for item in excel_data['sheets']]
         )
         ReportService.upload_report(excel_object, email_data)
+        return {
+            'statusCode': Http.SUCCESS,
+            'body': json.dumps({
+                'message': f'Se ha enviado exitosamente el reporte con el nombre {excel_object.filename}',
+                'code': Http.SUCCESS,
+            }),
+            'headers': {
+                'Content-Type': 'application/json'
+            }
+        }
     except ExcelException as ee:
         print(f"ERROR :: Ha ocurrido un error de tipo EXCEL")
         return {
