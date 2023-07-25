@@ -32,16 +32,12 @@ class Excel:
     # VALIDATIONS
     def validate_filename(self):
         pattern = r'^[a-zA-Z0-9-_]+$'
-        if re.match(pattern, self.filename):
-            return self.filename
-        else:
+        if not re.match(pattern, self.filename):
             print("VALIDATIONS :: El [filename] ingresado no coincide con los parametros de validación")
             raise InvalidFilename
 
     def validate_webhooks(self):
-        if isinstance(self.webhook, eval('bool')):
-            return self.webhook
-        else:
+        if not isinstance(self.webhook, eval('bool')):
             print("VALIDATIONS :: El [webhook] ingresado no coincide con los parametros de validación")
             raise InvalidType
 
