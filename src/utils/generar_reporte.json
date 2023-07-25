@@ -1,57 +1,40 @@
 {
-  "body": "{\n    \"email\": \"bri_riva@hotmail.com\",\n    \"excel\": {\n        \"filename\": \"reporte-test-001-z\",\n        \"webhook\": true,\n        \"sheets\": [\n            {\n                \"name\": \"LaHoja001\",\n                \"columns\": [\n                    [\n                        \"column-1\",\n                        \"int\"\n                    ],\n                    [\n                        \"column-2\",\n                        \"float\"\n                    ]\n                ],\n                \"data\": [\n                    {\n                        \"column-1\": 1,\n                        \"column-2\": true,\n                        \"column-N\": \"Una Cadena\"\n                    },\n                    {\n                        \"column-1\": 2,\n                        \"column-2\": 3.1416,\n                        \"column-N\": \"Otra Cadena\"\n                    }\n                ]\n            },\n            {\n                \"name\": \"LaHoja002\",\n                \"columns\": [\n                    [\n                        \"column-A\",\n                        \"bool\"\n                    ],\n                    [\n                        \"column-B\",\n                        \"str\"\n                    ]\n                ],\n                \"data\": [\n                    {\n                        \"column-A\": 1,\n                        \"column-B\": true,\n                        \"column-N\": \"Una Cadena\"\n                    },\n                    {\n                        \"column-A\": 2,\n                        \"column-B\": 3.1416,\n                        \"column-N\": \"Otra Cadena\"\n                    },\n                    {\n                        \"column-A\": false,\n                        \"column-B\": \"Otra Cadena\"\n                    }\n                ]\n            }\n        ]\n    }\n}",
-  "resource": "/{proxy+}",
-  "path": "/generar_reporte",
-  "httpMethod": "POST",
-  "queryStringParameters": {
-    "foo": "bar"
-  },
-  "pathParameters": {
-    "proxy": "path/to/resource"
-  },
-  "stageVariables": {
-    "baz": "qux"
-  },
-  "headers": {
-    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
-    "Accept-Encoding": "gzip, deflate, sdch",
-    "Accept-Language": "en-US,en;q=0.8",
-    "Cache-Control": "max-age=0",
-    "CloudFront-Forwarded-Proto": "https",
-    "CloudFront-Is-Desktop-Viewer": "true",
-    "CloudFront-Is-Mobile-Viewer": "false",
-    "CloudFront-Is-SmartTV-Viewer": "false",
-    "CloudFront-Is-Tablet-Viewer": "false",
-    "CloudFront-Viewer-Country": "US",
-    "Host": "1234567890.execute-api.{dns_suffix}",
-    "Upgrade-Insecure-Requests": "1",
-    "User-Agent": "Custom User Agent String",
-    "Via": "1.1 08f323deadbeefa7af34d5feb414ce27.cloudfront.net (CloudFront)",
-    "X-Amz-Cf-Id": "cDehVQoZnx43VYQb9j2-nvCh-9z396Uhbp027Y2JvkCPNLmGJHqlaA==",
-    "X-Forwarded-For": "127.0.0.1, 127.0.0.2",
-    "X-Forwarded-Port": "443",
-    "X-Forwarded-Proto": "https"
-  },
-  "requestContext": {
-    "accountId": "123456789012",
-    "resourceId": "123456",
-    "stage": "prod",
-    "requestId": "c6af9ac6-7b61-11e6-9a41-93e8deadbeef",
-    "identity": {
-      "cognitoIdentityPoolId": null,
-      "accountId": null,
-      "cognitoIdentityId": null,
-      "caller": null,
-      "apiKey": null,
-      "sourceIp": "127.0.0.1",
-      "cognitoAuthenticationType": null,
-      "cognitoAuthenticationProvider": null,
-      "userArn": null,
-      "userAgent": "Custom User Agent String",
-      "user": null
+    "version": "2.0",
+    "routeKey": "POST /upload_report",
+    "rawPath": "/upload_report",
+    "rawQueryString": "",
+    "headers": {
+        "accept": "*/*",
+        "accept-encoding": "gzip, deflate, br",
+        "cache-control": "no-cache",
+        "content-length": "1308",
+        "content-type": "application/json",
+        "host": "qm1u6a8nza.execute-api.us-east-1.amazonaws.com",
+        "postman-token": "f25bc93f-40c0-472a-8b40-91b4ac030d01",
+        "user-agent": "PostmanRuntime/7.32.3",
+        "x-amzn-trace-id": "Root=1-64bfcfc8-4536c5551f98ed182a4ee3bf",
+        "x-forwarded-for": "189.203.96.101",
+        "x-forwarded-port": "443",
+        "x-forwarded-proto": "https"
     },
-    "resourcePath": "/{proxy+}",
-    "httpMethod": "POST",
-    "apiId": "1234567890"
-  }
+    "requestContext": {
+        "accountId": "081037899749",
+        "apiId": "qm1u6a8nza",
+        "domainName": "qm1u6a8nza.execute-api.us-east-1.amazonaws.com",
+        "domainPrefix": "qm1u6a8nza",
+        "http": {
+            "method": "POST",
+            "path": "/upload_report",
+            "protocol": "HTTP/1.1",
+            "sourceIp": "189.203.96.101",
+            "userAgent": "PostmanRuntime/7.32.3"
+        },
+        "requestId": "In1nbjvioAMEJCg=",
+        "routeKey": "POST /upload_report",
+        "stage": "$default",
+        "time": "25/Jul/2023:13:36:08 +0000",
+        "timeEpoch": 1690292168858
+    },
+    "body": "{\n    \"email\": \"bri_riva@hotmail.com\",\n    \"excel\": {\n        \"filename\": \"reporte-1\",\n        \"webhook\": true,\n        \"sheets\": [\n            {\n                \"name\": \"LaHoja001\",\n                \"columns\": [\n                    [\n                        \"column-1\",\n                        \"int\"\n                    ],\n                    [\n                        \"column-2\",\n                        \"float\"\n                    ]\n                ],\n                \"data\": [\n                    {\n                        \"column-1\": 1,\n                        \"column-2\": 11.93\n                    },\n                    {\n                        \"column-1\": 2,\n                        \"column-2\": 3.1416\n                    }\n                ]\n            },\n            {\n                \"name\": \"LaHoja002\",\n                \"columns\": [\n                    [\n                        \"column-A\",\n                        \"bool\"\n                    ]\n                ],\n                \"data\": [\n                    {\n                        \"column-A\": true\n                    },\n                    {\n                        \"column-A\": true\n                    },\n                    {\n                        \"column-A\": false\n                    }\n                ]\n            }\n        ]\n    }\n}",
+    "isBase64Encoded": "False"
 }

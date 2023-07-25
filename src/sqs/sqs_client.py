@@ -18,4 +18,4 @@ class SQSClient:
         }
 
         return sqs_client.send_message(QueueUrl=ENVS.SQS_URL,
-                                       MessageBody=json.dumps(excel_json))
+                                       MessageBody=json.dumps(sqs_message))
