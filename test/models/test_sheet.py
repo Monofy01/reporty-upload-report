@@ -111,7 +111,7 @@ def test_invalid_column_type():
 #     webhook = excel_data['webhook']
 #
 #     # Verifica si se lanza la excepción InvalidName
-#     with pytest.raises(InvalidDataAndColumns):
+#     with pytest.raises(InvalidDataAndColumns):[[{"column_1": "int", "column_2": "bool"}, {"column_1": 1, "column_2": True, "column_3": [1, 2, 3]}, {"column_1": 1, "column_2": True, "column_3": [1, 2, 3]}]]
 #         sheets = [Sheet.from_dict(item) for item in excel_data['sheets']]
 #         excel = Excel(filename=filename, webhook=webhook, sheets=sheets)
 
