@@ -1,57 +1,63 @@
 {
-  "body": "{\n    \"email\": \"bri_riva@hotmail.com\",\n    \"excel\": {\n        \"filename\": \"reporte-test-001-z\",\n        \"webhook\": true,\n        \"sheets\": [\n            {\n                \"name\": \"LaHoja001\",\n                \"columns\": [\n                    [\n                        \"column-1\",\n                        \"int\"\n                    ],\n                    [\n                        \"column-2\",\n                        \"float\"\n                    ]\n                ],\n                \"data\": [\n                    {\n                        \"column-1\": 1,\n                        \"column-2\": true,\n                        \"column-N\": \"Una Cadena\"\n                    },\n                    {\n                        \"column-1\": 2,\n                        \"column-2\": 3.1416,\n                        \"column-N\": \"Otra Cadena\"\n                    }\n                ]\n            },\n            {\n                \"name\": \"LaHoja002\",\n                \"columns\": [\n                    [\n                        \"column-A\",\n                        \"bool\"\n                    ],\n                    [\n                        \"column-B\",\n                        \"str\"\n                    ]\n                ],\n                \"data\": [\n                    {\n                        \"column-A\": 1,\n                        \"column-B\": true,\n                        \"column-N\": \"Una Cadena\"\n                    },\n                    {\n                        \"column-A\": 2,\n                        \"column-B\": 3.1416,\n                        \"column-N\": \"Otra Cadena\"\n                    },\n                    {\n                        \"column-A\": false,\n                        \"column-B\": \"Otra Cadena\"\n                    }\n                ]\n            }\n        ]\n    }\n}",
-  "resource": "/{proxy+}",
-  "path": "/generar_reporte",
-  "httpMethod": "POST",
-  "queryStringParameters": {
-    "foo": "bar"
-  },
-  "pathParameters": {
-    "proxy": "path/to/resource"
-  },
-  "stageVariables": {
-    "baz": "qux"
-  },
-  "headers": {
-    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
-    "Accept-Encoding": "gzip, deflate, sdch",
-    "Accept-Language": "en-US,en;q=0.8",
-    "Cache-Control": "max-age=0",
-    "CloudFront-Forwarded-Proto": "https",
-    "CloudFront-Is-Desktop-Viewer": "true",
-    "CloudFront-Is-Mobile-Viewer": "false",
-    "CloudFront-Is-SmartTV-Viewer": "false",
-    "CloudFront-Is-Tablet-Viewer": "false",
-    "CloudFront-Viewer-Country": "US",
-    "Host": "1234567890.execute-api.{dns_suffix}",
-    "Upgrade-Insecure-Requests": "1",
-    "User-Agent": "Custom User Agent String",
-    "Via": "1.1 08f323deadbeefa7af34d5feb414ce27.cloudfront.net (CloudFront)",
-    "X-Amz-Cf-Id": "cDehVQoZnx43VYQb9j2-nvCh-9z396Uhbp027Y2JvkCPNLmGJHqlaA==",
-    "X-Forwarded-For": "127.0.0.1, 127.0.0.2",
-    "X-Forwarded-Port": "443",
-    "X-Forwarded-Proto": "https"
-  },
-  "requestContext": {
-    "accountId": "123456789012",
-    "resourceId": "123456",
-    "stage": "prod",
-    "requestId": "c6af9ac6-7b61-11e6-9a41-93e8deadbeef",
-    "identity": {
-      "cognitoIdentityPoolId": null,
-      "accountId": null,
-      "cognitoIdentityId": null,
-      "caller": null,
-      "apiKey": null,
-      "sourceIp": "127.0.0.1",
-      "cognitoAuthenticationType": null,
-      "cognitoAuthenticationProvider": null,
-      "userArn": null,
-      "userAgent": "Custom User Agent String",
-      "user": null
-    },
-    "resourcePath": "/{proxy+}",
-    "httpMethod": "POST",
-    "apiId": "1234567890"
-  }
+    "email": "bri_riva@hotmail.com",
+    "excel": {
+        "filename": "reporte-test-001-z",
+        "webhook": true,
+        "sheets": [
+            {
+                "name": "LaHoja001",
+                "columns": [
+                    [
+                        "column_1",
+                        "int"
+                    ],
+                    [
+                        "column_2",
+                        "float"
+                    ]
+                ],
+                "data": [
+                    {
+                        "column_1": 1,
+                        "column_2": true,
+                        "column_N": "Una Cadena"
+                    },
+                    {
+                        "column_1": 2,
+                        "column_2": 3.1416,
+                        "column_N": "Otra Cadena"
+                    }
+                ]
+            },
+            {
+                "name": "LaHoja002",
+                "columns": [
+                    [
+                        "column_A",
+                        "bool"
+                    ],
+                    [
+                        "column_B",
+                        "str"
+                    ]
+                ],
+                "data": [
+                    {
+                        "column_A": 1,
+                        "column_B": true,
+                        "column_N": "Una Cadena"
+                    },
+                    {
+                        "column_A": 2,
+                        "column_B": 3.1416,
+                        "column_N": "Otra Cadena"
+                    },
+                    {
+                        "column_A": false,
+                        "column_B": "Otra Cadena"
+                    }
+                ]
+            }
+        ]
+    }
 }

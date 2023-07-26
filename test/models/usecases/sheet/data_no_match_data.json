@@ -2,18 +2,14 @@
     "email": "juanito@hotmail.com",
     "excel": {
         "filename": "reporte_1",
-        "webhook": false,
+        "webhook": true,
         "sheets": [
             {
-                "name": "reporte_1",
+                "name": "hoja_1",
                 "columns": [
                     [
-                        "columnaconnombremuygrande",
+                        "column_1",
                         "int"
-                    ],
-                    [
-                        "column_2",
-                        "bool"
                     ],
                     [
                         "column_N",
@@ -23,13 +19,13 @@
                 "data": [
                     {
                         "column_1": 1,
-                        "column_2": true,
-                        "column_N": "cadenota"
+                        "column_2": false,
+                        "column_N": "Una Cadena"
                     },
                     {
-                        "column_1": 2,
+                        "column_1": 19,
                         "column_2": false,
-                        "column_N": "cadenita"
+                        "column_N": "Otra Cadena"
                     }
                 ]
             }

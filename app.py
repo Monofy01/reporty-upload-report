@@ -26,7 +26,7 @@ def handler(event, context):
             webhook=excel_data['webhook'],
             sheets=[Sheet.from_dict(item) for item in excel_data['sheets']]
         )
-        ReportService.upload_report(excel_object, email_data)
+        # ReportService.upload_report(excel_object, email_data)
         return {
             'statusCode': Http.SUCCESS,
             'body': json.dumps({

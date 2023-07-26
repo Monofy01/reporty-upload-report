@@ -54,8 +54,7 @@ class Sheet:
         VALID_TYPES = {'int', 'float', 'str', 'bool', 'list'}
 
         for c in self.columns:
-            # pattern = r'^[a-zA-Z0-9_]{1,12}$' # TODO: RECORDAR CAMBIAR ESTO SI LO PERMITEN
-            pattern = r'^[a-zA-Z0-9-_]{1,12}$'
+            pattern = r'^[a-zA-Z0-9_]{1,12}$'
             if len(c[0]) > 13:
                 print("VALIDATIONS :: El valor [sheet.columns.name] excede la longitud maxima")
                 raise InvalidColumnNameLength
@@ -63,7 +62,7 @@ class Sheet:
                 print(
                     "VALIDATIONS :: El valor [sheet.columns.name] ingresado no coincide con los parametros de validación")
                 raise InvalidColumnName
-            if not c[1].lower() in VALID_TYPES:  # TODO: Si no se permiten MAYUS, eliminar lower()
+            if not c[1].lower() in VALID_TYPES:
                 print(
                     "VALIDATIONS :: El valor [sheet.columns.type] ingresado no coincide con los tipos de datos definidos {'int', 'float', 'str', 'bool', 'list'}")
                 raise InvalidColumnTypes
@@ -71,33 +70,36 @@ class Sheet:
     def validate_data(self):
         VALID_TYPES = {'int', 'float', 'str', 'bool', 'list'}
 
-        for index, row in enumerate(self.data):
+        real_data = list(enumerate(self.data))
+
+        for index, row in real_data:
             # VERIFICAMOS QUE EL NUMERO DE COLUMNAS Y DATOS A EVALUAR SEA EL MISMO
-            if not len(self.columns) == len(row):
-                raise InvalidDataAndColumns
+            if not validate_match_dc(self.columns, row):
+                self.data_invalid.append(real_data[index][1])
+                self.data.remove(row)
+            else:
+                # no n*n, por si crece
+                index_column = 0
+                index_data = 0
+                is_compatible = False
 
-            # no n*n, por si crece
-            index_column = 0
-            index_data = 0
-            is_compatible = False
+                # SE VERIFICA DE UNO EN UNO LA VALIDEZ DE LA FILA
+                while not is_compatible:
+                    name_column = self.columns[index_column][0]  # OBTENEMOS EL NOMBRE DE LA COLUMNA
+                    type_name = self.columns[index_column][1]  # OBTENEMOS EL TIPO DE LA COLUMNA
+                    real_value = row[name_column]  # OBTENEMOS EL DATO REAL QUE SE QUIERE INGRESAR EN LA COLUMNA
 
-            # SE VERIFICA DE UNO EN UNO LA VALIDEZ DE LA FILA
-            while not is_compatible:
-                name_column = self.columns[index_column][0]  # OBTENEMOS EL NOMBRE DE LA COLUMNA
-                type_name = self.columns[index_column][1]  # OBTENEMOS EL TIPO DE LA COLUMNA
-                real_value = row[name_column]  # OBTENEMOS EL DATO REAL QUE SE QUIERE INGRESAR EN LA COLUMNA
+                    index_column = index_column + 1
+                    index_data = index_data + 1
 
-                index_column = index_column + 1
-                index_data = index_data + 1
+                    if index_column == len(self.columns) and index_data == len(row):
+                        is_compatible = True
 
-                if index_column == len(self.columns) and index_data == len(row):
-                    is_compatible = True
-
-                # REALIZAMOS LA EVALUACION DEL TIPO DE DATO DE LA COLUMNA CON EL VALOR REAL
-                if not isinstance(real_value, eval(type_name)):
-                    self.data_invalid.append(self.data[index])
-                    self.data.pop(index)
-                    # raise InvalidData
+                    # REALIZAMOS LA EVALUACION DEL TIPO DE DATO DE LA COLUMNA CON EL VALOR REAL
+                    if not isinstance(real_value, eval(type_name.lower())):
+                        self.data_invalid.append(real_data[index][1])
+                        self.data.remove(row)
+                        # raise InvalidData
 
 def validate_sheets_structure(dict_sheet):
     if 'name' not in dict_sheet:
@@ -110,3 +112,30 @@ def validate_sheets_structure(dict_sheet):
         print("VALIDATIONS :: La lista ingresada de [sheets] no contiene el campo [sheet.data]")
         raise InvalidSheetStructure
 
+def validate_match_columns_data(columns, row):
+    for c in columns:
+        column_name = c[0]
+        if column_name in row.keys():
+            continue
+        else:
+            return False
+    return True
+
+def validate_match_data_columns(columns, row):
+    for k, v in row.items:
+        row_name = k
+        for c in columns:
+            if row_name in columns[0]:
+                continue
+            else:
+                return False
+    return True
+
+def validate_match_dc(columns, row):
+    columns_set = set()
+    rows_set = set()
+    for c in columns:
+        columns_set.add(c[0])
+    for k in row.keys():
+        rows_set.add(k)
+    return columns_set == rows_set
