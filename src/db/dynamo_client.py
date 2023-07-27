@@ -52,5 +52,5 @@ class DynamoClient:
             print("INFO :: La metadata ha sido insertada correctamente en las tablas de DynamoDB")
         except Exception as e:
             print(f"ERROR :: Ha ocurrido un error en la generacion del reporte :: {e}")
-            print(f"VALIDATIONS :: El [filename] = [{filename}] ingresado ya ha sido generado como un reporte valido")
-            raise ReporteExistente
+            msg = f"VALIDATIONS :: El [filename] = [{filename}] ingresado ya ha sido generado como un reporte valido"
+            raise ReporteExistente(msg.split("VALIDATIONS :: ")[-1])
