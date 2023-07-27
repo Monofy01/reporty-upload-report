@@ -89,7 +89,7 @@ class Sheet:
         VALID_TYPES = {'int', 'float', 'str', 'bool', 'list'}
 
         for c in self.columns:
-            pattern = r'^[a-zA-Z0-9_]{1,12}$'
+            pattern = r'^[a-zA-Z0-9_]+$'
             if len(c[0]) > 13:
                 msg = f"VALIDATIONS :: El valor [sheet.columns.name] = [{c[0]}] excede la longitud maxima"
                 print(msg)
