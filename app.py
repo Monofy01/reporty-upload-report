@@ -45,7 +45,7 @@ def handler(event, context):
                 try:
                     ReportService.upload_report(excel_object, email_data)
                 except Exception as e:
-                    log_output.append(ReporteExistente())
+                    log_output.append(ReporteExistente().to_dict())
                 if len(log_output) > 0:
                     return {
                         'statusCode': Http.UNPROCESSABLE,
