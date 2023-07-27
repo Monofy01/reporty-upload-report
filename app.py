@@ -33,7 +33,7 @@ def handler(event, context):
         if len(log_output) > 0:
             return {
                 'statusCode': 500,
-                'body': log_output,
+                'body': json.dumps(log_output),
                 'headers': {
                     'Content-Type': 'application/json'
                 }
@@ -55,7 +55,7 @@ def handler(event, context):
         print("REPORTE EXISTENTE")
         return {
             'statusCode': Http.UNPROCESSABLE,
-            'body': log_output,
+            'body': json.dumps(log_output),
             'headers': {
                 'Content-Type': 'application/json'
             }
