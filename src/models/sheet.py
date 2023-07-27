@@ -169,7 +169,7 @@ def validate_sheets_structure(dict_sheet):
         print(msg)
         log_output.append(InvalidSheetStructureData(msg.split("VALIDATIONS :: ")[-1]).to_dict())
     else:
-        if not all(isinstance(item, list) for item in dict_sheet['columns']):
+        if not all(isinstance(item, list) for item in dict_sheet['data']):
             msg = "VALIDATIONS :: La lista ingresada de [sheets.data] debe contener unicamente diccionarios"
             print(msg)
             log_output.append(InvalidSheetStructureMatch(msg.split("VALIDATIONS :: ")[-1]).to_dict())
