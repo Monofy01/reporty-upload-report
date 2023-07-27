@@ -99,11 +99,11 @@ class Sheet:
                       f"alfanuméricos y guiones bajos."
                 print(msg)
                 self.log_output.append(InvalidColumnName(msg.split("VALIDATIONS :: ")[-1]).to_dict())
-            if not c[1].lower() in VALID_TYPES:
-                msg = f"VALIDATIONS :: El valor [sheet.columns.type] = [{c[1]}] ingresado no coincide con los tipos " \
-                      f"de datos definidos {'int', 'float', 'str', 'bool', 'list'}"
-                print(msg)
-                self.log_output.append(InvalidColumnTypes(msg.split("VALIDATIONS :: ")[-1]).to_dict())
+            # if not c[1].lower() in VALID_TYPES:
+            #     msg = f"VALIDATIONS :: El valor [sheet.columns.type] = [{c[1]}] ingresado no coincide con los tipos " \
+            #           f"de datos definidos {'int', 'float', 'str', 'bool', 'list'}"
+            #     print(msg)
+            #     self.log_output.append(InvalidColumnTypes(msg.split("VALIDATIONS :: ")[-1]).to_dict())
 
     def validate_data(self):
         VALID_TYPES = {'int', 'float', 'str', 'bool', 'list'}
@@ -139,10 +139,12 @@ class Sheet:
                             self.data_invalid.append(real_data[index][1])
                             self.data.remove(row)
                     except Exception as e:
-                        msg = f"VALIDATIONS :: El valor [sheet.columns.type] = [{type_name.lower()}] ingresado no " \
-                              f"coincide con los tipos de datos definidos {'int', 'float', 'str', 'bool', 'list'}"
-                        if not InvalidColumnTypes(msg.split("VALIDATIONS :: ")[-1]).to_dict() in self.log_output:
-                            self.log_output.append(InvalidColumnTypes(msg.split("VALIDATIONS :: ")[-1]).to_dict())
+                        self.data_invalid.append(real_data[index][1])
+                        self.data.remove(row)
+                        # msg = f"VALIDATIONS :: El valor [sheet.columns.type] = [{type_name.lower()}] ingresado no " \
+                        #       f"coincide con los tipos de datos definidos {'int', 'float', 'str', 'bool', 'list'}"
+                        # if not InvalidColumnTypes(msg.split("VALIDATIONS :: ")[-1]).to_dict() in self.log_output:
+                        #     self.log_output.append(InvalidColumnTypes(msg.split("VALIDATIONS :: ")[-1]).to_dict())
 
 
 def validate_sheets_structure(dict_sheet):
