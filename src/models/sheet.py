@@ -11,10 +11,12 @@ class Sheet:
     columns: List[Tuple]
     data: List[Dict]
     data_invalid: List[Dict] = dataclasses.field(default_factory=list)
+    log_output: list = dataclasses.field(default_factory=list)
+
 
     @classmethod
-    def from_dict(cls, sheet_dict: Dict) -> 'Sheet':
-        validate_sheets_structure(sheet_dict)
+    def from_dict(cls, sheet_dict: Dict, log_output: List) -> 'Sheet':
+        validate_sheets_structure(sheet_dict, log_output)
         name = sheet_dict.get('name', '')
         columns = [tuple(column) for column in sheet_dict.get('columns', [])]
         data = [dict(item) for item in sheet_dict.get('data', [])]
@@ -25,6 +27,7 @@ class Sheet:
         self.validate_sheet_name()
         self.validate_sheet_columns()
         self.validate_data()
+
 
     def to_dict(self):
         # Convierte la instancia de Sheet en un diccionario
@@ -42,13 +45,13 @@ class Sheet:
         # FIRST CONDITION
         if len(self.name) > 13:
             print("VALIDATIONS :: El valor [sheet.name] excede la longitud maxima")
-            raise InvalidLengthName
+            self.log_output.append(InvalidLengthName().to_dict())
 
         # SECOND CONDITION
         pattern = r'^[a-zA-Z0-9-_]{1,12}$'
         if not re.match(pattern, self.name):
             print("VALIDATIONS :: El [sheet.name] ingresado no coincide con los parametros de validación")
-            raise InvalidName
+            self.log_output.append(InvalidName().to_dict())
 
     def validate_sheet_columns(self):
         VALID_TYPES = {'int', 'float', 'str', 'bool', 'list'}
@@ -57,15 +60,15 @@ class Sheet:
             pattern = r'^[a-zA-Z0-9_]{1,12}$'
             if len(c[0]) > 13:
                 print("VALIDATIONS :: El valor [sheet.columns.name] excede la longitud maxima")
-                raise InvalidColumnNameLength
+                self.log_output.append(InvalidColumnNameLength().to_dict())
             if not re.match(pattern, c[0]):
                 print(
                     "VALIDATIONS :: El valor [sheet.columns.name] ingresado no coincide con los parametros de validación")
-                raise InvalidColumnName
+                self.log_output.append(InvalidColumnName().to_dict())
             if not c[1].lower() in VALID_TYPES:
                 print(
                     "VALIDATIONS :: El valor [sheet.columns.type] ingresado no coincide con los tipos de datos definidos {'int', 'float', 'str', 'bool', 'list'}")
-                raise InvalidColumnTypes
+                self.log_output.append(InvalidColumnTypes().to_dict())
 
     def validate_data(self):
         VALID_TYPES = {'int', 'float', 'str', 'bool', 'list'}
@@ -99,18 +102,17 @@ class Sheet:
                     if not isinstance(real_value, eval(type_name.lower())):
                         self.data_invalid.append(real_data[index][1])
                         self.data.remove(row)
-                        # raise InvalidData
 
-def validate_sheets_structure(dict_sheet):
+def validate_sheets_structure(dict_sheet, log_output):
     if 'name' not in dict_sheet:
         print("VALIDATIONS :: La lista ingresada de [sheets] no contiene el campo [sheet.name]")
-        raise InvalidSheetStructure
+        log_output.append(InvalidSheetStructure().to_dict())
     if 'columns' not in dict_sheet:
         print("VALIDATIONS :: La lista ingresada de [sheets] no contiene el campo [sheet.columns]")
-        raise InvalidSheetStructure
+        log_output.append(InvalidSheetStructure().to_dict())
     if 'data' not in dict_sheet:
         print("VALIDATIONS :: La lista ingresada de [sheets] no contiene el campo [sheet.data]")
-        raise InvalidSheetStructure
+        log_output.append(InvalidSheetStructure().to_dict())
 
 def validate_match_columns_data(columns, row):
     for c in columns:

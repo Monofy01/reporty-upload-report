@@ -18,7 +18,6 @@ class Excel:
         self.validate_webhooks()
         self.validate_sheets_length()
 
-
     def to_dict(self):
         # Convierte la instancia de Excel en un diccionario
         excel_dict = {
@@ -34,16 +33,14 @@ class Excel:
         pattern = r'^[a-zA-Z0-9-_]+$'
         if not re.match(pattern, self.filename):
             print("VALIDATIONS :: El [filename] ingresado no coincide con los parametros de validación")
-            raise InvalidFilename
+            self.log_output.append(InvalidFilename().to_dict())
 
     def validate_webhooks(self):
         if not isinstance(self.webhook, eval('bool')):
             print("VALIDATIONS :: El [webhook] ingresado no coincide con los parametros de validación")
-            raise InvalidType
+            self.log_output.append(InvalidType().to_dict())
 
     def validate_sheets_length(self):
         if len(self.sheets) <= 0:
             print("VALIDATIONS :: La lista ingresada de [sheets] debe contener al menos un valor para ser valida")
-            raise InvalidSheetLength
-
-
+            self.log_output.append(InvalidSheetLength().to_dict())

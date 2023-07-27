@@ -7,6 +7,12 @@ class ExcelException(RuntimeError):
         self.message = message
         self.http_code = http_code
 
+    def to_dict(self):
+        return {
+            "message": self.message,
+            "http_code": self.http_code
+        }
+
 
 class InvalidFilename(ExcelException):
     def __init__(self):
