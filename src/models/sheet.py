@@ -90,10 +90,10 @@ class Sheet:
 
         for c in self.columns:
             pattern = r'^[a-zA-Z0-9_]+$'
-            if len(c[0]) > 13:
-                msg = f"VALIDATIONS :: El valor [sheet.columns.name] = [{c[0]}] excede la longitud maxima"
-                print(msg)
-                self.log_output.append(InvalidColumnNameLength(msg.split("VALIDATIONS :: ")[-1]).to_dict())
+            # if len(c[0]) > 13:
+            #     msg = f"VALIDATIONS :: El valor [sheet.columns.name] = [{c[0]}] excede la longitud maxima"
+            #     print(msg)
+            #     self.log_output.append(InvalidColumnNameLength(msg.split("VALIDATIONS :: ")[-1]).to_dict())
             if not re.match(pattern, c[0]):
                 msg = f"VALIDATIONS :: El valor [sheet.columns.name] = [{c[0]}] solo debe permitir caracteres " \
                       f"alfanuméricos y guiones bajos."
