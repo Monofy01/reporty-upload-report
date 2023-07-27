@@ -21,9 +21,23 @@ class InvalidName(SheetException):
         super().__init__(message, http_code)
 
 
-class InvalidSheetStructure(SheetException):
+class InvalidSheetStructureName(SheetException):
     def __init__(self):
-        message = "El campo {SHEETS} debe contener estos 3 campos [name{text}, columns{lista} y data{lista}]"
+        message = "El campo {SHEETS} debe contener el campo [name{text}]"
+        http_code = Http.BAD_REQUEST
+        super().__init__(message, http_code)
+
+
+class InvalidSheetStructureColumn(SheetException):
+    def __init__(self):
+        message = "El campo {SHEETS} debe contener el campo [columns{lista}]"
+        http_code = Http.BAD_REQUEST
+        super().__init__(message, http_code)
+
+
+class InvalidSheetStructureData(SheetException):
+    def __init__(self):
+        message = "El campo {SHEETS} debe contener el campo [data{lista}]"
         http_code = Http.BAD_REQUEST
         super().__init__(message, http_code)
 
@@ -37,7 +51,7 @@ class InvalidLengthName(SheetException):
 
 class InvalidColumnName(SheetException):
     def __init__(self):
-        message = "El campo de {SHEETS.COLUMNS} en su primer elemento [nombre_columna] no coincide con los parametros establecidos en las validaciones"
+        message = "El campo de {SHEETS.COLUMNS} en su primer elemento [nombre_columna] solo se debe permitir caracteres alfanuméricos, guiones medio y guiones bajo."
         http_code = Http.BAD_REQUEST
         super().__init__(message, http_code)
 

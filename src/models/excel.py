@@ -32,15 +32,16 @@ class Excel:
     def validate_filename(self):
         pattern = r'^[a-zA-Z0-9-_]+$'
         if not re.match(pattern, self.filename):
-            print("VALIDATIONS :: El [filename] ingresado no coincide con los parametros de validación")
+            print(f"VALIDATIONS :: El [filename] = [{self.filename}] ingresado solo debe permitir caracteres "
+                  f"alfanumericos, guiones bajos y guiones medios")
             self.log_output.append(InvalidFilename().to_dict())
 
     def validate_webhooks(self):
         if not isinstance(self.webhook, eval('bool')):
-            print("VALIDATIONS :: El [webhook] ingresado no coincide con los parametros de validación")
+            print(f"VALIDATIONS :: El [webhook] = [{self.webhook}] ingresado ingresado solo debe permitir valores de tipo bool ['true', 'false']")
             self.log_output.append(InvalidType().to_dict())
 
     def validate_sheets_length(self):
         if len(self.sheets) <= 0:
-            print("VALIDATIONS :: La lista ingresada de [sheets] debe contener al menos un valor para ser valida")
+            print(f"VALIDATIONS :: La lista ingresada de [sheets] debe contener al menos un valor para ser valida")
             self.log_output.append(InvalidSheetLength().to_dict())
