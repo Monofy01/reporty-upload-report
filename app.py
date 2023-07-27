@@ -11,7 +11,6 @@ def handler(event, context):
     try:
             # SECCION DE DECODING
             print(f"REQUEST :: {event}")
-            print(f"BODY :: {event['body']}")
             body = json.loads(event['body'])
             excel_data = body['excel']
             email_data = body['email']
@@ -47,6 +46,7 @@ def handler(event, context):
                 except Exception as e:
                     log_output.append(ReporteExistente().to_dict())
                 if len(log_output) > 0:
+                    print("REPORTE EXISTENTE RETORNO ->")
                     return {
                         'statusCode': Http.UNPROCESSABLE,
                         'body': log_output,
