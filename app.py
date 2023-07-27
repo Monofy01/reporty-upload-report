@@ -32,7 +32,7 @@ def handler(event, context):
 
         if len(log_output) > 0:
             return {
-                'statusCode': Http.UNPROCESSABLE,
+                'statusCode': 500,
                 'body': log_output,
                 'headers': {
                     'Content-Type': 'application/json'
@@ -52,6 +52,7 @@ def handler(event, context):
             }
     except ReporteExistente as e:
         log_output = [e.to_dict()]
+        print("REPORTE EXISTENTE")
         return {
             'statusCode': Http.UNPROCESSABLE,
             'body': log_output,
