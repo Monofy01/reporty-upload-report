@@ -32,16 +32,20 @@ class Excel:
     def validate_filename(self):
         pattern = r'^[a-zA-Z0-9-_]+$'
         if not re.match(pattern, self.filename):
-            print(f"VALIDATIONS :: El [filename] = [{self.filename}] ingresado solo debe permitir caracteres "
-                  f"alfanumericos, guiones bajos y guiones medios")
-            self.log_output.append(InvalidFilename().to_dict())
+            msg = f"VALIDATIONS :: El [filename] = [{self.filename}] ingresado solo debe permitir caracteres " \
+                  f"alfanumericos, guiones bajos y guiones medios"
+            print(msg)
+            self.log_output.append(InvalidFilename(msg.split("VALIDATIONS :: ")[-1]).to_dict())
 
     def validate_webhooks(self):
         if not isinstance(self.webhook, eval('bool')):
-            print(f"VALIDATIONS :: El [webhook] = [{self.webhook}] ingresado ingresado solo debe permitir valores de tipo bool ['true', 'false']")
-            self.log_output.append(InvalidType().to_dict())
+            msg = f"VALIDATIONS :: El [webhook] = [{self.webhook}] ingresado ingresado solo debe permitir valores de " \
+                  f"tipo bool ['true', 'false']"
+            print(msg)
+            self.log_output.append(InvalidType(msg.split("VALIDATIONS :: ")[-1]).to_dict())
 
     def validate_sheets_length(self):
         if len(self.sheets) <= 0:
-            print(f"VALIDATIONS :: La lista ingresada de [sheets] debe contener al menos un valor para ser valida")
-            self.log_output.append(InvalidSheetLength().to_dict())
+            msg = f"VALIDATIONS :: La lista ingresada de [sheets] debe contener al menos un valor para ser valida"
+            print(msg)
+            self.log_output.append(InvalidSheetLength(msg.split("VALIDATIONS :: ")[-1]).to_dict())

@@ -15,28 +15,28 @@ class ExcelException(RuntimeError):
 
 
 class InvalidFilename(ExcelException):
-    def __init__(self):
-        message = "El campo {FILENAME} solo permite caracteres alfanuméricos, guiones medios y guiones bajos"
+    def __init__(self, message):
+        message = message
         http_code = Http.BAD_REQUEST
         super().__init__(message, http_code)
 
 
 class InvalidType(ExcelException):
-    def __init__(self):
-        message = "El campo de {WEBHOOK} ingresado no es una variable de tipo bool"
+    def __init__(self, message):
+        message = message
         http_code = Http.BAD_REQUEST
         super().__init__(message, http_code)
 
 
 class InvalidSheetLength(ExcelException):
-    def __init__(self):
-        message = "El campo {SHEETS} debe tener al menos un valor para poder ser procesado"
+    def __init__(self, message):
+        message = message
         http_code = Http.BAD_REQUEST
         super().__init__(message, http_code)
 
 
 class ReporteExistente(ExcelException):
-    def __init__(self):
-        message = "El reporte que se intenta carga ya ha sido generado en el sistema"
+    def __init__(self, message):
+        message = message
         http_code = Http.CONFLICT
         super().__init__(message, http_code)
