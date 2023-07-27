@@ -21,6 +21,12 @@ class InvalidName(SheetException):
         super().__init__(message, http_code)
 
 
+class InvalidSheetStructureMatch(SheetException):
+    def __init__(self, message):
+        message = message
+        http_code = Http.BAD_REQUEST
+        super().__init__(message, http_code)
+
 class InvalidSheetStructureName(SheetException):
     def __init__(self, message):
         message = message
