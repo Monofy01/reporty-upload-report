@@ -3,6 +3,7 @@ import re
 from typing import Dict, List, Tuple
 
 from src.exceptions.sheet_exceptions import *
+from src.exceptions.structure_exceptions import *
 
 
 @dataclasses.dataclass
@@ -15,48 +16,45 @@ class Sheet:
 
     @classmethod
     def from_dict(cls, sheet_dict: Dict) -> 'Sheet':
-        logs = validate_sheets_structure(sheet_dict)
+        errors = validate_sheets_structure(sheet_dict)
         name = sheet_dict.get('name', '')
-        columns, data = [], []
-        log_output = logs
+        columns = [tuple(column) for column in sheet_dict.get('columns', []) if isinstance(column, list) and len(column) == 2]
+        data = [dict(item) for item in sheet_dict.get('data', []) if isinstance(item, dict)]
 
-        # VERIFICAMOS ESTRUCTURA INTERNA DE COLUMNS Y DATA
-        msg1 = "La lista ingresada de [sheets.columns] debe contener unicamente listas"
-        msg2 = "La lista ingresada de [sheets.data] debe contener unicamente diccionarios"
+        return cls(name, columns, data, errors)
 
-        ex1 = InvalidSheetStructureMatch(msg1).to_dict()
-        ex2 = InvalidSheetStructureMatch(msg2).to_dict()
-        invalid_structure = [ex1, ex2]
-
-        if not any(ex in log_output for ex in invalid_structure):
-            columns = [tuple(column) for column in sheet_dict.get('columns', []) if isinstance(column, list)]
-            data = [dict(item) for item in sheet_dict.get('data', []) if len(item) == 2]
-
-        return cls(name, columns, data, log_output)
 
     def __post_init__(self):
         ex1_msg = "La lista ingresada de [sheets] no contiene el campo [sheet.name]"
         ex2_msg = "La lista ingresada de [sheets] no contiene el campo [sheet.columns]"
         ex3_msg = "La lista ingresada de [sheets] no contiene el campo [sheet.data]"
 
-        ex1 = InvalidSheetStructureName(ex1_msg).to_dict()
-        ex2 = InvalidSheetStructureColumn(ex2_msg).to_dict()
-        ex3 = InvalidSheetStructureData(ex3_msg).to_dict()
+        ex1 = InvalidSheetStructureName().to_dict()
+        ex2 = InvalidSheetStructureColumn().to_dict()
+        ex3 = InvalidSheetStructureData().to_dict()
+        ex4 = InvalidSheetStructureMatchColumns().to_dict()
+        ex5 = InvalidSheetStructureMatchData().to_dict()
 
-        log_exceptions = [ex1["message"], ex2["message"], ex3["message"]]
+        log_exceptions = [ex1, ex2, ex3, ex4, ex5]
         log_found = any(msg in self.log_output for msg in log_exceptions)
 
-        if not log_found:
-            validations = {
+        if log_found:
+            validation_methods = {
                 ex1_msg: [self.validate_sheet_name],
                 ex2_msg: [self.validate_sheet_columns],
                 ex3_msg: [self.validate_data]
             }
 
-            for msg in log_exceptions:
-                if msg in self.log_output:
-                    for validation_method in validations.get(msg, []):
-                        validation_method()
+            for ex in self.log_output:
+                if ex['message'] in validation_methods:
+                    validation_methods.pop(ex['message'])
+
+            for method in validation_methods.values():
+                method[0]()
+        else:
+            self.validate_sheet_name()
+            self.validate_sheet_columns()
+            self.validate_data()
 
     def to_dict(self):
         # Convierte la instancia de Sheet en un diccionario
@@ -162,17 +160,17 @@ def validate_sheets_structure(dict_sheet):
         if not all(isinstance(item, list) for item in dict_sheet['columns']):
             msg = "VALIDATIONS :: La lista ingresada de [sheets.columns] debe contener unicamente listas"
             print(msg)
-            log_output.append(InvalidSheetStructureMatch(msg.split("VALIDATIONS :: ")[-1]).to_dict())
+            log_output.append(InvalidSheetStructureMatchColumns(msg.split("VALIDATIONS :: ")[-1]).to_dict())
 
     if 'data' not in dict_sheet:
         msg = "VALIDATIONS :: La lista ingresada de [sheets] no contiene el campo [sheet.data]"
         print(msg)
         log_output.append(InvalidSheetStructureData(msg.split("VALIDATIONS :: ")[-1]).to_dict())
     else:
-        if not all(isinstance(item, list) for item in dict_sheet['data']):
+        if not all(isinstance(item, dict) for item in dict_sheet['data']):
             msg = "VALIDATIONS :: La lista ingresada de [sheets.data] debe contener unicamente diccionarios"
             print(msg)
-            log_output.append(InvalidSheetStructureMatch(msg.split("VALIDATIONS :: ")[-1]).to_dict())
+            log_output.append(InvalidSheetStructureMatchData(msg.split("VALIDATIONS :: ")[-1]).to_dict())
     return log_output
 
 
