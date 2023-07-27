@@ -138,9 +138,11 @@ class Sheet:
                         if not isinstance(real_value, eval(type_name.lower())):
                             self.data_invalid.append(real_data[index][1])
                             self.data.remove(row)
+                            break
                     except Exception as e:
                         self.data_invalid.append(real_data[index][1])
                         self.data.remove(row)
+                        break
                         # msg = f"VALIDATIONS :: El valor [sheet.columns.type] = [{type_name.lower()}] ingresado no " \
                         #       f"coincide con los tipos de datos definidos {'int', 'float', 'str', 'bool', 'list'}"
                         # if not InvalidColumnTypes(msg.split("VALIDATIONS :: ")[-1]).to_dict() in self.log_output:
