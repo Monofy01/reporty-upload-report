@@ -43,24 +43,21 @@ def handler(event, context):
                 # SECCION DE PROCESAMIENTO
                 try:
                     ReportService.upload_report(excel_object, email_data)
-                except Exception as e:
-                    log_output.append(ReporteExistente().to_dict())
-                if len(log_output) > 0:
-                    print("REPORTE EXISTENTE RETORNO ->")
-                    return {
-                        'statusCode': Http.UNPROCESSABLE,
-                        'body': log_output,
-                        'headers': {
-                            'Content-Type': 'application/json'
-                        }
-                    }
-                else:
                     return {
                         'statusCode': Http.SUCCESS,
                         'body': json.dumps({
                             'message': f'Se ha enviado exitosamente el reporte con el nombre {excel_object.filename}',
                             'code': Http.SUCCESS,
                         }),
+                        'headers': {
+                            'Content-Type': 'application/json'
+                        }
+                    }
+                except Exception as e:
+                    log_output.append(ReporteExistente().to_dict())
+                    return {
+                        'statusCode': Http.UNPROCESSABLE,
+                        'body': log_output,
                         'headers': {
                             'Content-Type': 'application/json'
                         }
